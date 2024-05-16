@@ -7,14 +7,46 @@ public class Pileczka : MonoBehaviour
     public float speed = 7.5f;
     Rigidbody rb;
 
+    Vector3 startPos;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Vector3 initVel = Random.insideUnitCircle;
-        initVel.y = Mathf.Abs(initVel.y);
-        initVel.x = Mathf.Clamp(initVel.x, -0.3f, 0.3f);
+        startPos = transform.position;
+        BallReady();
+    }
+
+    public void BallReady()
+    {
+        transform.position = startPos;
+        GetComponent<Renderer>().enabled = true;
+    }
+
+    public void StartBall()
+    {
+        Vector3 initVel = Vector2.zero;
+        initVel.y = 1;
+        initVel.x = 0;
+        initVel = 
+            Quaternion.AngleAxis(Random.Range(-30, 30), 
+            Vector3.forward) 
+            * initVel;
         initVel.Normalize();
         Debug.Log(initVel.magnitude);
         rb.velocity = initVel * speed;
+    }
+
+    void StopBall()
+    {
+        rb.velocity = Vector3.zero; 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Dead"))
+        {
+            StopBall();
+            GameManager.Instance.Dead();
+        }
     }
 }
