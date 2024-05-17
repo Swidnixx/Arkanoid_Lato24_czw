@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9941610816cd4eb40b365aa141e0c411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 2
+  yOffset: 2.21
   brickSize: {x: 1, y: 0.5}
   prefab: {fileID: 5656213902897540554, guid: 45e96bffcdb48a147b3c3a297cf84e4f, type: 3}
 --- !u!1 &396806797
