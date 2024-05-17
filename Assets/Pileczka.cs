@@ -28,7 +28,7 @@ public class Pileczka : MonoBehaviour
         initVel.y = 1;
         initVel.x = 0;
         initVel = 
-            Quaternion.AngleAxis(Random.Range(-30, 30), 
+            Quaternion.AngleAxis(Random.Range(0, 2)==0?-30:30, 
             Vector3.forward) 
             * initVel;
         initVel.Normalize();
@@ -36,7 +36,7 @@ public class Pileczka : MonoBehaviour
         rb.velocity = initVel * speed;
     }
 
-    void StopBall()
+    public void StopBall()
     {
         rb.velocity = Vector3.zero; 
     }

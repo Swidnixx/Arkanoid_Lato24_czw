@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    public int[,] bricksArray = new int[,] {
-        {0,0,0,0,2,0,0,0,0},
-        {0,0,0,1,2,1,0,0,0},
-        {0,0,2,2,2,2,2,0,0},
-        {0,1,1,1,2,1,1,1,0},
-        {0,0,0,0,2,0,0,0,0},
-    };
-
-    public int[,] bricksArray3 = new int[,] {
-        {0,0,3,0,0},
-        {0,0,3,0,0},
-        {0,2,3,2,2},
-        {1,1,3,1,1},
-        {0,2,3,2,0}
+    int[][,] levels =
+    {
+        new int[,]{
+            {0,0,0,0,2,0,0,0,0},
+            {0,0,0,1,2,1,0,0,0},
+            {0,0,2,2,2,2,2,0,0},
+            {0,1,1,1,2,1,1,1,0},
+            {0,0,0,0,2,0,0,0,0}
+        },
+        new int[,]{
+            {0,0,3,0,0},
+            {0,0,3,0,0},
+            {0,2,3,2,2},
+            {1,1,3,1,1},
+            {0,2,3,2,0}
+        },
     };
 
     public float yOffset;
@@ -26,13 +29,16 @@ public class Generator : MonoBehaviour
     List<Klocek> klocki = new List<Klocek>();
     public Klocek prefab;
 
-    private void Start()
-    {
-        Generate(bricksArray3);
-    }
+    public int Levels => levels.Length;
+    public int Klocki => klocki.Count;
 
-    public void Generate(int[,] level)
+    public void Generate(int level)
     {
+        Generate(levels[level]);
+    }
+    void Generate(int[,] level)
+    {
+        klocki.Clear();
         Vector2 startPos = Vector2.zero;
         startPos.x = -level.GetLength(1) * 0.5f * brickSize.x + brickSize.x * 0.5f;
         startPos.y = -level.GetLength(0)* 0.5f * brickSize.y + yOffset;
@@ -58,5 +64,11 @@ public class Generator : MonoBehaviour
         instancja.SetKlocek(zycia);
 
         klocki.Add(instancja);
+    }
+
+    internal void Usun(Klocek klocek)
+    {
+        if (klocki.Contains(klocek))
+            klocki.Remove(klocek);
     }
 }

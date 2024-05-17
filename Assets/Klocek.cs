@@ -39,6 +39,7 @@ public class Klocek : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.UsunKlocek(this);
                 Destroy(gameObject);
             }
         }
